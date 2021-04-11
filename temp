@@ -1,0 +1,43 @@
+import React, { useState } from 'react'
+import './upload.css'
+import Axios from 'axios'
+
+function Upload() {
+
+    
+    const [title,setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [img, setImg] = useState('');
+
+    const uploads = ()=> {
+        console.log(description)
+        Axios.post("http://localhost:3001/user/upload", {
+            description: description, 
+            title:title , 
+            img: img, 
+        } )
+        .then((response)=>{
+            console.log(response)
+        })
+    }
+
+    return (
+        <div className='upload'>
+            <h1 >Create a Post</h1>
+            <div className='upload-form'>
+                <input type= 'text' placeholder="Title" onChange={(event) => {
+                    setTitle(event.target.value)
+                    }}  />
+                <input type= 'text' placeholder="Description" onChange={(event) => {
+                    setDescription(event.target.value)
+                    }} />
+                <input type= 'text' placeholder="Enter Image URL" onChange={(event) => {
+                    setImg(event.target.value)
+                    }} />
+                <button onClick= {uploads} >Upload</button>
+            </div>
+        </div>
+    )
+}
+
+export default Upload
